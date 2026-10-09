@@ -1,0 +1,25 @@
+
+name: PC Virtual
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pc-virtual:
+    runs-on: windows-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Verificar ambiente
+        shell: pwsh
+        run: |
+          Write-Host "PC Virtual iniciado!"
+          Write-Host "Sistema:"
+          Get-ComputerInfo |
+            Select-Object WindowsProductName,
+                          OsArchitecture
+          Write-Host "Memoria:"
+          Get-CimInstance Win32_ComputerSystem |
+            Select-Object TotalPhysicalMemory
+          Write-Host "Ambiente pronto para testes."
+          
